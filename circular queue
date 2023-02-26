@@ -1,0 +1,81 @@
+#include <iostream>
+using namespace std;
+
+class CircularQueue {
+  private:
+    int front, rear, size;
+    int* arr;
+
+  public:
+    CircularQueue(int s) {
+      size = s;
+      front = -1;
+      rear = -1;
+      arr = new int[size];
+    }
+
+    void enqueue(int value) {
+      if ((rear+1)%size == front) {
+        cout << "overflow" << endl;
+        return;
+      }
+      if (front == -1) {
+        front = 0;
+        rear = 0;
+      } else {
+        rear = (rear+1)%size;
+      }
+      arr[rear] = value;
+    }
+
+    void dequeue() {
+      if (front == -1) {
+        cout << "underflow" << endl;
+        return;
+      }
+      if (front == rear) {
+        front = -1;
+        rear = -1;
+      } else {
+        front = (front+1)%size;
+      }
+    }
+
+    void display() {
+      if (front == -1) {
+        return;
+      }
+      int i = front;
+      do {
+        cout << arr[i] << " ";
+        i = (i+1)%size;
+      } while (i != (rear+1)%size);
+      cout << endl;
+    }
+};
+
+int main() {
+  int size, choice, value;
+  cin >> size;
+  CircularQueue q(size);
+
+  do {
+    cin >> choice;
+    switch(choice) {
+      case 1:
+        cin >> value;
+        q.enqueue(value);
+        break;
+      case 2:
+        q.dequeue();
+        break;
+      case 3:
+        q.display();
+        break;
+      default:
+        break;
+    }
+  } while (choice != 0);
+
+  return 0;
+}
