@@ -1,0 +1,111 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+  class Node {
+public:
+    int data;
+    Node* link;
+   
+    Node(int n)
+    {
+        this->data = n;
+        this->link = NULL;
+    }
+};
+class enqu{
+    Node *f,*r;
+public:
+    enqu()
+    {
+        r=NULL;
+    }
+      
+void enqueue(int data)
+{
+    Node* temp = new Node( data);
+ 
+        if (!temp) {
+            cout << "\n overflow";
+            exit(1);
+        }
+ 
+        temp->data = data;
+ 
+        temp->link = r;
+ 
+        r= temp;
+}
+      void dequeue()
+    {
+        Node* temp;
+ 
+        if (r== NULL) {
+            cout << "underflow" << endl;
+        }
+        else {
+ 
+            temp = f;
+ 
+            f = f->link;
+ 
+ 
+            free(temp);
+        }
+    }
+     void display()
+    {
+        Node* temp=f;
+ 
+        if (r== NULL) {
+            cout << "underflow";
+            exit(1);
+        }
+        else {
+            temp = r ;
+            while (temp != NULL) {
+ 
+                cout << temp->data;
+ 
+                temp = temp->link;
+                if (temp != NULL)
+                    cout << " ";
+            }
+            cout << "\n";
+        }
+    }
+};
+
+int main() {
+   
+     enqu q;
+    int ch,data;
+    do {
+        cin>>ch;
+        switch(ch)
+        {
+            case 1:{
+                cin>>data;
+                q.enqueue(data);
+                break;
+            }
+            case 2:{
+                q.dequeue();
+                break;
+            }
+            case 3 :
+                {
+                q.display();
+                    break;
+                }
+                default: {
+           
+         }
+        }
+    }
+    while(ch!=0);
+    return 0;
+}
